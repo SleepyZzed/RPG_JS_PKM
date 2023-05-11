@@ -1,0 +1,20 @@
+body{
+
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    overflow: hidden;
+    
+}
+background-color:black;
+
+}
+canvas{
+    width: 1920px;
+    height: 949.4999px;
+    margin: 0;
+
+}
