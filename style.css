@@ -1,4 +1,13 @@
+h1{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 body{
+    overflow: hidden;
+    
 
 .mainContainer{
     display: flex;
@@ -8,6 +17,9 @@ body{
     margin: 0;
     overflow: hidden;
     position: relative;
+    width: 1900px;
+    height: 949.4999px;
+    margin: 0;
     .cover{
         background-color: black;
         width: 100%;
@@ -18,17 +30,142 @@ body{
         opacity: 0;
         pointer-events: none;
     }
+
+    .healthbar-first{
+        background-color: white;
+        width: 450px;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        border: 4px #333 solid;
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow:black 20px 10px 50px ;
+        .name{
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Press Start 2P', cursive;
+            padding: 0;
+            margin: 0;
+        }
+        .health-meter-container{
+            position: relative;
+            .heath-meter{
+                height: 10px;
+                margin-top: 10px;
+                background-color: #1f1c1c;
+                border-radius: 30px;
+                outline: 4px #333 solid;
+                margin-bottom: 30px;
+            }
+            .heath-meter-full{
+                height: 10px;
+               
+                background: linear-gradient(45deg, #bef0be, #00ff73);
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                border-radius: 30px;
+              
+            }
+
+
+
+
+        }
+       
+
+    }
+    .second{
+        top: 450px;
+        right: 50px;
+        left: auto;
+    }
+  
+    .attack-bar{
+        flex-direction: row;
+        background-color: white;
+        left: 0;
+        right: 0;
+        height: 200px;
+        position: absolute;
+        bottom: 0;
+        border: 10px #333 solid;
+        border-radius: 10px;
+        box-shadow:black 20px 10px 50px ;
+        border-radius: 10px;
+        margin-right: 15px;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: row;
+        .attack-container{
+            flex: 10;
+            width: 66.6%;
+            .attack{
+              
+                margin: 10px 30px;
+                .attackbtn{
+                    font-family: 'Press Start 2P', cursive;
+
+                cursor: pointer;
+                border: 4px #333 solid;;
+                width: 700px;
+                height: 90px;
+                background: #ccc;
+                border-radius: 10px;
+                font-weight: bold;
+                font-size: 13px;
+                transition: transform 0.3s;
+                margin: 1px;
+               
+                }
+                
+                
+            }
+            .attackbtn:hover {
+                transform: scale(1.02);
+                background-color: #ddd;
+                
+                
+            }
+        }
+        .type-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex:2 ;
+            font-family: 'Press Start 2P', cursive;
+            background: #ccc;
+            width: 33.33%;
+            border-left: 4px #333 solid;
+            box-shadow:black 20px 10px 50px ;
+            
+            
+        }
+
+    }
     
 }
 background-color:black;
 
 }
 canvas{
-    width: 1920px;
+    width: 1900px;
     height: 949.4999px;
     margin: 0;
 
 }
+
+   
+   
+
+    
+
+
 
 
 

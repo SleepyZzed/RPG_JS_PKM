@@ -1,5 +1,9 @@
 const canvas = document.querySelector('canvas');
 
+
+
+
+
 const ctx = canvas.getContext('2d');
 console.log(collisions);
 canvas.width = 1024;
@@ -76,7 +80,8 @@ const player = new Sprite({
     },
     image: playerDownImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 40
     },
     sprites: {
         up: playerUpImage,
@@ -135,7 +140,8 @@ const battle =  {
 
 
 function animate(){
-    window.requestAnimationFrame(animate)
+    const animationId = window.requestAnimationFrame(animate);
+    console.log(animationId);
     background.draw();
     boundaries.forEach(boundary =>{
         boundary.draw();
@@ -150,8 +156,8 @@ function animate(){
     foreground.draw();
 
     let moving = true;
-    player.moving = false;
-    
+    player.animate = false;
+
     if(battle.initiated) return
 
     if(keys.w.pressed  || keys.a.pressed || keys.s.pressed || keys.d.pressed)
@@ -180,7 +186,29 @@ function animate(){
                     Math.random() < 0.01
                 ){
                 console.log('battlepending');
+                window.cancelAnimationFrame(animationId);
                 battle.initiated = true;
+                gsap.to('#cover', {
+                    opacity: 1,
+                    repeat: 4,
+                    yoyo: true,
+                    duration: .2,
+                    onComplete() {
+                        gsap.to('#cover', {
+                            opacity: 1,
+                            duration: .2,
+                            onComplete(){
+                                animateBattle();
+                                gsap.to('#cover', {
+                                    opacity: 0,
+                                    duration: .2,
+                                    
+                                })
+                            }
+                        })
+                    }
+                    
+                })
                 break
             }
         }
@@ -188,7 +216,7 @@ function animate(){
 
  
     if(keys.w.pressed && lastKey === 'w'){
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.up;
         for(let i = 0; i < boundaries.length; i++ )
         {   const boundary = boundaries[i];
@@ -214,7 +242,7 @@ function animate(){
         }
     }
     else if(keys.s.pressed && lastKey === 's'){
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.down;
         for(let i = 0; i < boundaries.length; i++ )
         {   const boundary = boundaries[i];
@@ -238,7 +266,7 @@ function animate(){
         }
     }
     else if(keys.a.pressed && lastKey === 'a'){
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.left;
         for(let i = 0; i < boundaries.length; i++ )
         {   const boundary = boundaries[i];
@@ -259,7 +287,7 @@ function animate(){
         }
     }
     else if(keys.d.pressed && lastKey === 'd'){
-        player.moving = true;
+        player.animate = true;
         player.image = player.sprites.right;
         for(let i = 0; i < boundaries.length; i++ )
         {   const boundary = boundaries[i];
@@ -280,7 +308,73 @@ function animate(){
         }
     }
 }
-animate();
+
+//animate();
+
+
+
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = './assets/tiles/battleBackground.png';
+const battleBackground = new Sprite({position:{
+    x: 0,
+    y: 0
+    },
+    image: battleBackgroundImage
+})
+const draggleImage = new Image();
+draggleImage.src = './assets/tiles/draggleSprite.png';
+const draggle = new Sprite({
+    position:{
+        x: 800,
+        y: 100
+    },
+    image: draggleImage,
+    frames:{
+        max:4,
+        hold: 90
+    },
+    animate: true
+})
+
+const embyImage = new Image();
+embyImage.src = './assets/tiles/embySprite.png';
+const emby = new Sprite({
+    position:{
+        x: 280,
+        y: 320
+    },
+    image: embyImage,
+    frames:{
+        max:4,
+        hold: 90
+    },
+    animate: true
+})
+
+function animateBattle(){
+    window.requestAnimationFrame(animateBattle);
+    battleBackground.draw();
+    draggle.draw();
+    emby.draw();
+}
+
+animateBattle();
+
+document.querySelectorAll('button').forEach(button =>{
+    button.addEventListener('click', () =>{
+        console.log('clicked');
+        emby.attack({ attack: {
+            name: 'Tackle',
+            damage: 10,
+            type: 'Normal'
+        },
+        recipient: draggle
+    })
+    })
+})
+
+
+
 let lastKey = '';
 let velocity = {
     x: 0,
