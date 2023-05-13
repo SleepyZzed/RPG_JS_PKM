@@ -1,5 +1,5 @@
 class Sprite{
-    constructor({position,velocity, image, frames = {max: 1, hold: 40}, sprites, animate = false, rotation = 0}){
+    constructor({position,velocity, image, frames = {max: 1, hold: 10}, sprites, animate = false, rotation = 0}){
         this.position = position;
         this.image = new Image();
         this.frames = {...frames, val: 0, elapsed: 0};
@@ -59,7 +59,7 @@ class Monster extends Sprite{
         position,
         velocity,
         image,
-        frames = {max: 1, hold: 40},
+        frames = {max: 1, hold: 10},
         sprites, 
         animate = false, 
         rotation = 0,
@@ -127,7 +127,7 @@ class Monster extends Sprite{
                     image: emberIamge,
                     frames: {
                         max: 4,
-                        hold: 40
+                        hold: 10
                     },
                     animate: true,
                    rotation
