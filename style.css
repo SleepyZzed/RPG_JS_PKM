@@ -7,7 +7,7 @@ h1{
 
 body{
     overflow: hidden;
-    
+    font-family: 'Press Start 2P', cursive;
 
 .mainContainer{
     display: flex;
@@ -102,8 +102,22 @@ body{
         display: flex;
         flex-direction: row;
         .attack-container{
-            flex: 10;
-            width: 66.6%;
+        flex: 10;
+        width: 66.6%;
+        .text-container{
+            position: absolute;
+            top:0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: white;
+            padding: 20px;
+            font-size: 30px;
+            box-shadow:black 20px 10px 50px;
+            display: none;
+            z-index: 2;
+            cursor: pointer;
+        }
             .attack{
               
                 margin: 10px 30px;

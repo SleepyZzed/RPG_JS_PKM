@@ -22,14 +22,14 @@
         <p class="name">Draggle</p>
         <div class="health-meter-container">
         <div class="heath-meter"></div>
-        <div class="heath-meter-full"></div>
+        <div class="heath-meter-full" id='enemy'></div>
     </div>
     </div>
     <div class="healthbar-first second">
         <p class="name">Emby</p>
         <div class="health-meter-container">
         <div class="heath-meter"></div>
-        <div class="heath-meter-full"></div>
+        <div class="heath-meter-full" id="friendly"></div>
     </div>
     </div>
 
@@ -38,11 +38,14 @@
 
     <div class="attack-bar">
         <div class="attack-container">
+        <div class="text-container" id="text-container">
+            sdadsada
+        </div>
         <div class="attack">
-            <button class="attackbtn">Tackle</button>
-            <button class="attackbtn">Fireball</button>
-            <button class="attackbtn">-</button>
-            <button class="attackbtn">-</button>
+            <button class="attackbtn" id="btn1">Tackle</button>
+            <button class="attackbtn" id="btn2">Ember</button>
+            <button class="attackbtn" id="btn3">-</button>
+            <button class="attackbtn" id="btn4">-</button>
         </div>
         </div>
         <div class="type-container">
@@ -52,9 +55,11 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src ='./data/collisions.js'></script>
+    <script src ='./data/attacks.js'></script>
     <script src ='./data/battlezones.js'></script>
     <script src ='classes.js'></script>
     <script src ='index.js'></script>
+    <script src="battlescene.js"></script>
     
 </body>
 </html>
