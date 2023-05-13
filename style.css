@@ -175,7 +175,9 @@ canvas{
 
 }
 
-   
+#battle-ui{
+    display: none;
+}
    
 
     

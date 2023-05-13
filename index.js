@@ -5,7 +5,7 @@ const canvas = document.querySelector('canvas');
 
 
 const ctx = canvas.getContext('2d');
-console.log(collisions);
+
 canvas.width = 1024;
 canvas.height = 576;
 
@@ -141,7 +141,7 @@ const battle =  {
 
 function animate(){
     const animationId = window.requestAnimationFrame(animate);
-    console.log(animationId);
+
     background.draw();
     boundaries.forEach(boundary =>{
         boundary.draw();
@@ -185,8 +185,12 @@ function animate(){
                     overlappingArea > (player.width * player.height) / 2 && 
                     Math.random() < 0.01
                 ){
-                console.log('battlepending');
+
                 window.cancelAnimationFrame(animationId);
+
+                audio.Map.stop();
+                audio.initBattle.play();
+                audio.battle.play();
                 battle.initiated = true;
                 gsap.to('#cover', {
                     opacity: 1,
@@ -228,7 +232,7 @@ function animate(){
                     y: boundary.position.y + 1
                 }}
             })){
-                console.log('colliding');
+
                 moving = false;
                 break
             }
@@ -254,7 +258,7 @@ function animate(){
                     y: boundary.position.y - 1
                 }}
             })){
-                console.log('colliding');
+       
                 moving = false;
                 break
             }
@@ -278,7 +282,7 @@ function animate(){
                     y: boundary.position.y
                 }}
             })){
-                console.log('colliding');
+            
                 moving = false;
                 break
             }
@@ -299,7 +303,7 @@ function animate(){
                     y: boundary.position.y
                 }}
             })){
-                console.log('colliding');
+             
                 moving = false;
                 break
             }
@@ -340,7 +344,7 @@ function keyDown(event){
         lastKey = 'd';
         
       }
-      console.log(lastKey); 
+     
       
 }
 document.body.addEventListener('keyup', keyUp);
@@ -363,13 +367,15 @@ function keyUp(event){
         keys.d.pressed = false;
         
       }
-      console.log(keys);
-      
-    
-      
-       
-      
 }
+
+let clicked = false
+addEventListener('click', () =>{
+    if(!clicked){
+        audio.Map.play();
+        clicked = true;
+    }
+})
 
 
 

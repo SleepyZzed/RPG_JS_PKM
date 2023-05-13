@@ -65,7 +65,8 @@ class Monster extends Sprite{
         rotation = 0,
         isEnemy = false, 
         name,
-        attacks
+        attacks,
+        cry
         
     })
     {
@@ -82,6 +83,7 @@ class Monster extends Sprite{
         this.name = name;
         this.health = 100;
         this.attacks = attacks;
+        this.cry = cry;
         
     }
 
@@ -93,6 +95,9 @@ class Monster extends Sprite{
         gsap.to(this, {
             opacity: 0
         })
+        audio.battle.stop();
+        this.cry.play();
+        audio.victory.play();
     }
 
     attack({attack, recipient, renderedSprites}){
@@ -111,6 +116,7 @@ class Monster extends Sprite{
         switch(attack.name){
 
             case 'Ember':
+                audio.initFiireBall.play();
                 const emberIamge = new Image();
                 emberIamge.src='./assets/tiles/fireball.png';
                 const ember = new Sprite({
@@ -127,12 +133,13 @@ class Monster extends Sprite{
                    rotation
                 })
 
-               
+                
                 renderedSprites.splice(1, 0, ember);
                 gsap.to(ember.position, {
                     x: recipient.position.x,
                     y: recipient.position.y,
                     onComplete:() =>{
+                        audio.fireBallHit.play();
                         gsap.to(healthBar, {
                             width: recipient.health + '%',
                             onComplete: () =>{
@@ -183,6 +190,7 @@ class Monster extends Sprite{
                     x: this.position.x + movementDistance * 4,
                     duration: 0.087,
                     onComplete: () => {
+                        audio.tackleHit.play();
                         gsap.to(healthBar, {
                             width: recipient.health + '%',
                             onComplete: () =>{
@@ -237,7 +245,7 @@ class Boundary {
   
 
     draw(){
-        ctx.fillStyle= 'rgba(255,0,0,.5)';
+        ctx.fillStyle= 'rgba(255,0,0,0)';
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }

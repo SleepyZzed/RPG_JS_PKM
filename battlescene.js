@@ -21,7 +21,7 @@ let battleAnimationId
 function animateBattle(){
     battleAnimationId = window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
-    console.log(battleAnimationId);
+
 
     renderedSprites.forEach(sprite =>{
         sprite.draw();
@@ -57,7 +57,7 @@ function initBattle(){
         button.addEventListener('click', (e) =>{
             const selectedAttack = attacks[e.currentTarget.innerHTML]
             if(e.currentTarget.innerHTML == '-') return    
-            console.log(selectedAttack);
+  
             emby.attack({ 
             attack: selectedAttack, 
             recipient: draggle,
@@ -81,6 +81,8 @@ function initBattle(){
                             opacity: 0
                         })
                         battle.initiated = false;
+                        audio.victory.stop();
+                        audio.Map.play();
                     }
                 })
              })
@@ -111,6 +113,8 @@ function initBattle(){
                             })
 
                             battle.initiated = false;
+                            audio.victory.stop();
+                            audio.Map.play();
                         }
                     })
                  })
@@ -129,8 +133,9 @@ function initBattle(){
         })
     })
 }
-initBattle();
-animateBattle();
+animate();
+/* initBattle(); */
+/* animateBattle(); */
 
 
 
