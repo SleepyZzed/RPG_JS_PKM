@@ -17,7 +17,13 @@
     <div class="mainContainer">
 
     <div class="cover" id="cover"></div>
+    
+    
 
+
+    <canvas class=""></canvas>
+
+    <div class="battle-ui" id="battle-ui">
     <div class="healthbar-first">
         <p class="name">Draggle</p>
         <div class="health-meter-container">
@@ -33,29 +39,25 @@
     </div>
     </div>
 
-
-    <canvas class=""></canvas>
-
     <div class="attack-bar">
-        <div class="attack-container">
+        <div class="attack-container" id=>
         <div class="text-container" id="text-container">
             sdadsada
         </div>
-        <div class="attack">
-            <button class="attackbtn" id="btn1">Tackle</button>
-            <button class="attackbtn" id="btn2">Ember</button>
-            <button class="attackbtn" id="btn3">-</button>
-            <button class="attackbtn" id="btn4">-</button>
+        <div class="attack" id="attack-box">
+
         </div>
         </div>
         <div class="type-container">
-            <h1>Attack Type</h1>
+            <h1 id="type-text">Attack Type</h1>
         </div>
+    </div>
     </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src ='./data/collisions.js'></script>
     <script src ='./data/attacks.js'></script>
+    <script src ='./data/monster.js'></script>
     <script src ='./data/battlezones.js'></script>
     <script src ='classes.js'></script>
     <script src ='index.js'></script>

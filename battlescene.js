@@ -6,77 +6,137 @@ const battleBackground = new Sprite({position:{
     },
     image: battleBackgroundImage
 })
-const draggleImage = new Image();
-draggleImage.src = './assets/tiles/draggleSprite.png';
-const draggle = new Sprite({
-    position:{
-        x: 800,
-        y: 100
-    },
-    image: draggleImage,
-    frames:{
-        max:4,
-        hold: 90
-    },
-    animate: true,
-    isEnemy: true,
-    name: 'Draggle'
-})
 
-const embyImage = new Image();
-embyImage.src = './assets/tiles/embySprite.png';
-const emby = new Sprite({
-    position:{
-        x: 280,
-        y: 320
-    },
-    image: embyImage,
-    frames:{
-        max:4,
-        hold: 90
-    },
-    animate: true,
-    name: 'Emby'
-})
+let draggle; 
+let emby;
+let renderedSprites;
+let queue;
 
-const renderedSprites =[draggle, emby]
+
+
+
+let battleAnimationId
+
 
 function animateBattle(){
-    window.requestAnimationFrame(animateBattle);
+    battleAnimationId = window.requestAnimationFrame(animateBattle);
     battleBackground.draw();
-
+    console.log(battleAnimationId);
 
     renderedSprites.forEach(sprite =>{
         sprite.draw();
     })
 }
+function initBattle(){
+    document.querySelector('#battle-ui').style.display = 'block';
+    document.querySelector('#text-container').style.display = 'none';
+    document.querySelector('#enemy').style.width = '100%';
+    document.querySelector('#friendly').style.width = '100%';
+    document.querySelector('#attack-box').replaceChildren();
+    document.querySelector('#friendly').style.background = 'linear-gradient(45deg, #bef0be, #00ff73)';
+    document.querySelector('#enemy').style.background = 'linear-gradient(45deg, #bef0be, #00ff73)';
+    draggle = new Monster(monsters.Draggle);
+    emby = new Monster(monsters.Emby);
+    renderedSprites = [draggle, emby];
+    queue = []
 
-animateBattle();
+    emby.attacks.forEach((attack) =>{
 
-const queue = []
-
-
+     
 
 
-document.querySelectorAll('button').forEach(button =>{
-    button.addEventListener('click', (e) =>{
-        const selectedAttack = attacks[e.currentTarget.innerHTML]
-        if(e.currentTarget.innerHTML == '-') return    
-        console.log(selectedAttack);
-        emby.attack({ 
-        attack: selectedAttack, 
-        recipient: draggle,
-        renderedSprites
+        
+        const button = document.createElement('button');
+        button.className = 'attackbtn';
+        button.innerHTML = attack.name;
+        document.querySelector('#attack-box').append(button);
+        
+       
     })
-        queue.push(() => {
-            draggle.attack({ 
-                attack: attacks.Tackle, 
-                recipient: emby,
-                renderedSprites
+    document.querySelectorAll('button').forEach(button =>{
+        button.addEventListener('click', (e) =>{
+            const selectedAttack = attacks[e.currentTarget.innerHTML]
+            if(e.currentTarget.innerHTML == '-') return    
+            console.log(selectedAttack);
+            emby.attack({ 
+            attack: selectedAttack, 
+            recipient: draggle,
+            renderedSprites
+            
+        })
+        
+        if(draggle.health <= 0)
+        {
+            queue.push(() => {
+               draggle.faint()
             })
+            queue.push(() => {
+                gsap.to('#cover', {
+                    opacity: 1,
+                    onComplete: () =>{
+                        cancelAnimationFrame(battleAnimationId);
+                        animate();
+                        document.querySelector('#battle-ui').style.display = 'none'
+                        gsap.to('#cover', {
+                            opacity: 0
+                        })
+                        battle.initiated = false;
+                    }
+                })
+             })
+        }
+            
+        
+        const randomAttack = draggle.attacks[Math.floor(Math.random() *draggle.attacks.length)]
+            queue.push(() => {
+                draggle.attack({ 
+                    attack: randomAttack,
+                    recipient: emby,
+                    renderedSprites
+                })
+                
+                if(emby.health <= 0)
+                {
+                queue.push(() => {
+                emby.faint()
+                queue.push(() => {
+                    gsap.to('#cover', {
+                        opacity: 1,
+                        onComplete: () =>{
+                            cancelAnimationFrame(battleAnimationId);
+                            animate();
+                            document.querySelector('#battle-ui').style.display = 'none'
+                            gsap.to('#cover', {
+                                opacity: 0
+                            })
+
+                            battle.initiated = false;
+                        }
+                    })
+                 })
+            })
+                }
+                })
+        })
+    
+        button.addEventListener('mouseenter',  (e) =>{
+            const selectedAttack = attacks[e.currentTarget.innerHTML];
+            document.querySelector('#type-text').innerHTML = selectedAttack.type;
+            document.querySelector('#type-text').style.background = selectedAttack.background;
+            document.querySelector('#type-text').style.webkitBackgroundClip  = selectedAttack.backgroundclip;
+            document.querySelector('#type-text').style.color  = selectedAttack.color;
+        
         })
     })
-})
+}
+initBattle();
+animateBattle();
+
+
+
+
+
+
 
 
 document.querySelector('#text-container').addEventListener('click', (e) =>{
@@ -85,10 +145,7 @@ document.querySelector('#text-container').addEventListener('click', (e) =>{
         queue[0]()
         queue.shift()
     }else {
-    document.querySelector('#btn1').style.display = 'inline-block';
-    document.querySelector('#btn2').style.display = 'inline-block';
-    document.querySelector('#btn3').style.display = 'inline-block';
-    document.querySelector('#btn4').style.display = 'inline-block';
+
     e.currentTarget.style.display = 'none';
     }
 })

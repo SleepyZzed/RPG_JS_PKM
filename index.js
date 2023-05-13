@@ -198,6 +198,7 @@ function animate(){
                             opacity: 1,
                             duration: .2,
                             onComplete(){
+                                initBattle();
                                 animateBattle();
                                 gsap.to('#cover', {
                                     opacity: 0,
