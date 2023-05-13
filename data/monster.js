@@ -5,7 +5,7 @@ const monsters = {
         y: 325
       },
       image: {
-        src: '../assets/tiles/embySprite.png'
+        src: './assets/tiles/embySprite.png'
       },
       frames: {
         max: 4,
@@ -15,7 +15,7 @@ const monsters = {
       name: 'Emby',
       attacks: [attacks.Tackle, attacks.Ember],
       cry: new Howl({
-        src: '../assets/music/quilava.mp3',
+        src: './assets/music/quilava.mp3',
         html5: true,
         volume: 1
       })
@@ -26,7 +26,7 @@ const monsters = {
         y: 100
       },
       image: {
-        src: '../assets/tiles/draggleSprite.png'
+        src: './assets/tiles/draggleSprite.png'
       },
       frames: {
         max: 4,
@@ -37,7 +37,7 @@ const monsters = {
       name: 'Draggle',
       attacks: [attacks.Tackle, attacks.Ember],
       cry: new Howl({
-        src: '../assets/music/piplup.ogg',
+        src: './assets/music/piplup.ogg',
         html5: true,
         volume: 1
       })
